@@ -1,7 +1,7 @@
 <div>
     <div class="chat-input">
-        <input type="text" name="displayName" [(ngModel)]="displayName" #displayNameControl="ngModel" class="form-control" placeholder="Enter Display Name">
-        <input type="text" name="chatMessage" [(ngModel)]="chatMessage" #chatMessageControl="ngModel" class="form-control" (keydown)="handleChatKeydown($event)">
+        <input type="text" name="displayName" [(ngModel)]="displayName" #displayNameControl="ngModel" class="form-control" placeholder="Display Name">
+        <input type="text" name="chatMessage" [(ngModel)]="chatMessage" #chatMessageControl="ngModel" class="form-control" (keydown)="handleChatKeydown($event)" placeholder="Chat Message">
     </div>
     <br />
     <div *ngFor="let msg of thread">
