@@ -1,15 +1,27 @@
 {
-  "name": "example-browser-angular",
-  "version": "0.0.0",
+  "authors": [
+    "Paul Gilchrist"
+  ],
+  "name": "peer-to-peer",
+  "description": "Angular Template using npm for packages, gulp as the task runner",
+  "homepage": "https://PaulGilchrist.github.io/peer-to-peer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PaulGilchrist/peer-to-peer.git"
+  },
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "clean": "rimraf ./dist",
+    "build": "ng build --prod --base-href /peer-to-peer/",
+    "deploy": "ngh",
+    "e2e": "ng e2e",
+    "lint": "npx ng lint peer-to-peer",
     "ng": "ng",
+    "predeploy": "npm run build",
     "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test:angular": "ng test",
-    "test": "npm run build && playwright test tests"
+    "test": "ng test",
+    "watch": "ng build --watch --configuration development"
   },
   "dependencies": {
     "@angular/animations": "~12.2.0",
@@ -35,6 +47,7 @@
     "@playwright/test": "^1.12.3",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^16.6.2",
+    "gh-pages": "^3.1.0",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
