@@ -3,13 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
+import { MessengerComponent } from './components/messenger/messenger.component';
+import { NavTopComponent } from './components/nav-top/nav-top.component';
+
 import { IpfsService } from './services/ipfs.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MessengerComponent,
+    NavTopComponent
   ],
   imports: [
     BrowserModule,

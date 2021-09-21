@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IpfsService } from './services/ipfs.service'
+import { IpfsService } from './../../services/ipfs.service'
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-messenger',
+  templateUrl: './messenger.component.html',
+  styleUrls: ['./messenger.component.css']
 })
-export class AppComponent implements OnInit {
-  channel = "global";
+export class MessengerComponent implements OnInit {
+  channel = "private";
   chatMessage = "";
   displayName = "";
   thread: string[] = [];
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   async start() {
-    console.log(`app.start()`);
+    console.log(`Subscribing to channel ${this.channel}`);
     await this.ipfsService.subscribe(this.channel, (msg: any) => this.out(msg));
   }
 
@@ -40,11 +40,9 @@ export class AppComponent implements OnInit {
     }
   }
 
-  // usage: await joinChan("example_channel");
   async out(msg: any) {
     console.log(`app.out()`);
     // processing recieved messages
-    // let stringMessage = new TextDecoder().decode(msg.data);
     this.thread.push(msg.data);
   }
 

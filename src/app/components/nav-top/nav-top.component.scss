@@ -1,0 +1,11 @@
+.active > .nav-link {
+    background-color: black;
+    border-radius: 5px;
+    color: white !important;
+}
+.offline {
+    color: red;
+}
+.online {
+    color: greenyellow;
+}
