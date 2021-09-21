@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { MessengerComponent } from './components/messenger/messenger.component';
 import { NavTopComponent } from './components/nav-top/nav-top.component';
+import { PubSubComponent } from './components/pub-sub/pub-sub.component';
 
 import { IpfsService } from './services/ipfs.service';
 
@@ -14,7 +15,8 @@ import { IpfsService } from './services/ipfs.service';
   declarations: [
     AppComponent,
     MessengerComponent,
-    NavTopComponent
+    NavTopComponent,
+    PubSubComponent
   ],
   imports: [
     BrowserModule,

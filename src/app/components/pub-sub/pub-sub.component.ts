@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { IpfsService } from './../../services/ipfs.service'
 
 @Component({
-  selector: 'app-messenger',
-  templateUrl: './messenger.component.html',
-  styleUrls: ['./messenger.component.css']
+  selector: 'pub-sub',
+  templateUrl: './pub-sub.component.html',
+  styleUrls: ['./pub-sub.component.css']
 })
-export class MessengerComponent implements OnInit {
-  channel = "private";
+export class PubSubComponent implements OnInit {
+  channel = "pub-sub";
   chatMessage = "";
   displayName = "";
   thread: string[] = [];
@@ -16,13 +16,6 @@ export class MessengerComponent implements OnInit {
   constructor(private ipfsService: IpfsService) {}
 
   ngOnInit() {
-    const threadJson = sessionStorage.getItem(`thread-${this.channel}`);
-    if(threadJson != null) {
-      console.log(threadJson);
-      this.thread = JSON.parse(threadJson);
-      console.log(this.thread);
-
-    }
     // Improve this to wait for ipfsService to have connected
     this.ipfsService.ready$.subscribe((ready) => {
       if(ready) {
@@ -50,14 +43,7 @@ export class MessengerComponent implements OnInit {
   async out(msg: any) {
     console.log(`app.out()`);
     // processing recieved messages
-    console.log(msg.data);
-    try {
-      msg = new TextDecoder().decode(msg.data);
-    } catch (ex) {
-      msg = msg.data;
-    }
-    this.thread.push(msg);
-    sessionStorage.setItem(`thread-${this.channel}`, JSON.stringify(this.thread));
+    this.thread.push(msg.data);
   }
 
 }
