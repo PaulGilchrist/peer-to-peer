@@ -51,7 +51,7 @@ export class PubSubComponent implements OnInit {
       phoneNumber: faker.phone.phoneNumber(),
       street: faker.address.streetAddress().replace(/[^0-9a-zA-Z ]/g, ""),
       city: faker.address.city().replace(/[^a-zA-Z ]/g, ""),
-      state: faker.address.stateAbbr(),
+      state: faker.address.state(),
       zip: faker.address.zipCode(),
     }
   }

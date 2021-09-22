@@ -1,10 +1,20 @@
-<div>
+<div class="main">
     <div class="chat-input">
-        <input type="text" name="displayName" [(ngModel)]="displayName" #displayNameControl="ngModel" class="form-control" placeholder="Display Name">
-        <input type="text" name="chatMessage" [(ngModel)]="chatMessage" #chatMessageControl="ngModel" class="form-control" (keydown)="handleChatKeydown($event)" placeholder="Chat Message">
+        <input type="text" name="displayName" [(ngModel)]="message.displayName" #displayNameControl="ngModel"
+            class="form-control" placeholder="Display Name">
+        <input type="text" name="messageText" [(ngModel)]="message.text" #chatMessageControl="ngModel"
+            class="form-control" (keydown)="handleChatKeydown($event)" placeholder="Chat Message">
     </div>
     <br />
-    <div *ngFor="let msg of thread">
-        {{msg}}<br />
+    <div *ngFor="let msg of thread" class="card">
+        <div class="header"> <!-- not card-header because we do not want that behavior -->
+            <div class="card-title">{{msg.displayName}}</div>
+            <i>{{getDateString(msg.dateCreated)}}</i>
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                {{msg.text}}<br />
+            </div>
+        </div>
     </div>
 </div>
