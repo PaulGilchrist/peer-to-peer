@@ -33,7 +33,7 @@ export class MessengerComponent implements OnInit {
 
   async start() {
     console.log(`Subscribing to channel ${this.channel}`);
-    await this.ipfsService.subscribe(this.channel, (msg: any) => this.out(msg));
+    await this.ipfsService.subscribe(this.channel, (msg: any) => this.handleMessage(msg));
   }
 
   handleChatKeydown(event: any) {
@@ -47,10 +47,8 @@ export class MessengerComponent implements OnInit {
     }
   }
 
-  async out(msg: any) {
-    console.log(`app.out()`);
+  async handleMessage(msg: any) {
     // processing recieved messages
-    console.log(msg.data);
     try {
       msg = new TextDecoder().decode(msg.data);
     } catch (ex) {

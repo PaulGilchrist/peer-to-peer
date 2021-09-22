@@ -1,10 +1,65 @@
-<div>
-    <div class="chat-input">
-        <input type="text" name="displayName" [(ngModel)]="displayName" #displayNameControl="ngModel" class="form-control" placeholder="Display Name">
-        <input type="text" name="chatMessage" [(ngModel)]="chatMessage" #chatMessageControl="ngModel" class="form-control" (keydown)="handleChatKeydown($event)" placeholder="Chat Message">
-    </div>
-    <br />
-    <div *ngFor="let msg of thread">
-        {{msg}}<br />
-    </div>
+<div id="user-form">
+    <h3>User</h3>
+    <form #userForm="ngForm" novalidate>
+        <div class="form-group">
+            <label class="control-label" htmlFor="firstName">First Name</label>
+            <div class="input-group margin-bottom-sm">
+                <div class="input-group-text"><i class="fa fa-user fa-fw"></i></div>
+                <input type="text" name="firstName" [(ngModel)]="user.firstName" #firstNameControl="ngModel" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" htmlFor="lastName">Last Name</label>
+            <div class="input-group margin-bottom-sm">
+                <div class="input-group-text"><i class="fa fa-users fa-fw"></i></div>
+                <input type="text" name="lastName" [(ngModel)]="user.lastName" #lastNameControl="ngModel" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" htmlFor="email">Email Address</label>
+            <div class="input-group margin-bottom-sm">
+                <div class="input-group-text"><i class="fa fa-envelope-o fa-fw"></i></div>
+                <input type="email" name="email" required [(ngModel)]="user.email" #emailControl="ngModel" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" htmlFor="email">Phone Number</label>
+            <div class="input-group margin-bottom-sm">
+                <div class="input-group-text"><i class="fa fa-phone fa-fw"></i></div>
+                <input type="tel" name="phone" [(ngModel)]="user.phoneNumber" #phoneControl="ngModel" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" htmlFor="street">Street</label>
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-text"><i class="fa fa-map-marker fa-fw"></i></span>
+	            <input type="text" name="street" [(ngModel)]="user.street" #streetControl="ngModel" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" htmlFor="city">City</label>
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-text"><i class="fa fa-compass fa-fw"></i></span>
+	            <input type="text" name="city" [(ngModel)]="user.city" #cityControl="ngModel" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" htmlFor="state">State</label>
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-text"><i class="fa fa-plane fa-fw"></i></span>
+				<input type="text" name="state" [(ngModel)]="user.state" #cityControl="ngModel" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" htmlFor="zip">Zip Code</label>
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-text"><i class="fa fa-globe fa-fw"></i></span>
+	            <input type="text" name="zip" [(ngModel)]="user.zip" #zipControl="ngModel" class="form-control" disabled>
+            </div>
+        </div>  
+        <div style="height:10px;"></div>
+        <button class="btn btn-success" (click)="sendUser()"><i class="fa fa-check"></i> Send</button>
+        &nbsp;
+        <button class="btn btn-success" (click)="generateUser()"><i class="fa fa-times"></i> Generate</button>
+    </form>
 </div>

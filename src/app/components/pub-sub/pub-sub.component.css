@@ -1,5 +1,16 @@
-.chat-input {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 200px auto;
+.form-group {
+  margin-bottom: 5px;
+}
+h2 {
+  margin-top: 0;
+}
+input.ng-valid { border-left: 5px solid var(--color-success);; }
+input.ng-invalid { border-left: 5px solid var(--color-danger);; }
+label {
+  margin-bottom: 1px;
+}
+#user-form {
+  max-width: 600px;
+  padding: 10px;
+  margin: auto;
 }

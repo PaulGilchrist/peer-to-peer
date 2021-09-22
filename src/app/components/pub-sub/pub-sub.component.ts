@@ -1,5 +1,7 @@
+import { stripGeneratedFileSuffix } from '@angular/compiler/src/aot/util';
 import { Component, OnInit } from '@angular/core';
-
+import * as faker from 'faker';
+import { phone } from 'faker';
 import { IpfsService } from './../../services/ipfs.service'
 
 @Component({
@@ -9,9 +11,18 @@ import { IpfsService } from './../../services/ipfs.service'
 })
 export class PubSubComponent implements OnInit {
   channel = "pub-sub";
-  chatMessage = "";
-  displayName = "";
-  thread: string[] = [];
+
+  user = {
+    firstName: '',
+    lastName: '',
+    displayName: '',
+    email: '',
+    phoneNumber: '',
+    street: '',
+    city: '',
+    state: '',
+    zip: ''
+  }
 
   constructor(private ipfsService: IpfsService) {}
 
@@ -26,24 +37,38 @@ export class PubSubComponent implements OnInit {
 
   async start() {
     console.log(`Subscribing to channel ${this.channel}`);
-    await this.ipfsService.subscribe(this.channel, (msg: any) => this.out(msg));
+    await this.ipfsService.subscribe(this.channel, (msg: any) => this.handleMessage(msg));
   }
 
-  handleChatKeydown(event: any) {
-    // block for translating an enter keypress while in the chat input as a message submission
-    if (!event) { event = window.event; }
-    // Enter is pressed
-    if (event.keyCode == 13) {
-      event.preventDefault();
-      this.ipfsService.sendMsg(`[${this.displayName}] ${this.chatMessage}`, this.channel);
-      this.chatMessage = "";
+  generateUser() {
+    const firstName = faker.name.firstName().replace(/[^a-zA-Z ]/g, "");
+    const lastName = faker.name.lastName().replace(/[^a-zA-Z ]/g, "");
+    this.user = {
+      firstName,
+      lastName,
+      displayName: `${firstName} ${lastName}`,
+      email: faker.internet.email(firstName, lastName).replace(/[^a-zA-Z@\. ]/g, ""),
+      phoneNumber: faker.phone.phoneNumber(),
+      street: faker.address.streetAddress().replace(/[^0-9a-zA-Z ]/g, ""),
+      city: faker.address.city().replace(/[^a-zA-Z ]/g, ""),
+      state: faker.address.stateAbbr(),
+      zip: faker.address.zipCode(),
     }
   }
 
-  async out(msg: any) {
-    console.log(`app.out()`);
+  async handleMessage(msg: any) {
     // processing recieved messages
-    this.thread.push(msg.data);
+    let userJson = '';
+    try {
+      userJson = new TextDecoder().decode(msg.data);
+    } catch (ex) {
+      userJson = msg.data;
+    }
+    this.user = JSON.parse(userJson);
+  }
+
+  sendUser() {
+    this.ipfsService.sendMsg(JSON.stringify(this.user), this.channel);
   }
 
 }
