@@ -13,7 +13,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "ng build --prod --base-href /peer-to-peer/",
+    "build": "ng build --base-href /peer-to-peer/",
     "deploy": "ngh",
     "e2e": "ng e2e",
     "lint": "npx ng lint peer-to-peer",

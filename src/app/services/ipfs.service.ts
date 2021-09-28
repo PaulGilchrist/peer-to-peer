@@ -34,7 +34,10 @@ export class IpfsService {
             },
             config: {
                 Addresses: {
-                    Swarm: ['/dns4/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star', '/dns6/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star']
+                    Swarm: [
+                        '/dns4/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star',
+                        '/dns6/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star'
+                    ]
                 },
                 // FIXME Announce: [ '/p2p/12D3KooWChhhfGdB9GJy1GbhghAAKCUR99oCymMEVS4eUcEy67nt/p2p-circuit' ],
             }

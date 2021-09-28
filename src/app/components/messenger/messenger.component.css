@@ -1,6 +1,21 @@
-.card {
+.active {
+  color: green;
+}
+.inactive {
+  color: orange;
+}
+.offline {
+  color: red;
+}
+article .card {
   margin-top: 5px;
   margin-left: 5px;
+}
+aside .card {
+  margin-top: 5px;
+}
+aside .card-header {
+  padding:  0 10px 0 10px;
 }
 .card-body {
   padding-bottom: 5px;
@@ -23,7 +38,10 @@
   grid-template-columns: 200px auto;
 }
 .main {
-  max-width: 600px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto auto;
+  max-width: 700px;
   padding: 10px;
   margin: auto;
 }

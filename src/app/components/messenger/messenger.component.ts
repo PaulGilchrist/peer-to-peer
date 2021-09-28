@@ -14,6 +14,7 @@ export class MessengerComponent implements OnInit {
     dateCreated: Date.now(),
     text: ""
   }
+  peers: any = [];
   thread: any = [];
 
   constructor(private ipfsService: IpfsService) {}
@@ -37,7 +38,26 @@ export class MessengerComponent implements OnInit {
 
   async start() {
     console.log(`Subscribing to channel ${this.channel}`);
-    await this.ipfsService.subscribe(this.channel, (msg: any) => this.handleMessage(msg));
+    await this.ipfsService.subscribe(this.channel, (msg: any) => this.handleReceiveMessage(msg));
+    setInterval(() => {
+      // Every minute, update peer statuses
+      this.peers.forEach((peer: any) => {
+        const timeSinceActive = Date.now() - peer.lastActiveDate;
+        if(timeSinceActive < 15000) { // 15 seconds (testing only)
+          peer.status = 'Active';
+        } else if(timeSinceActive < 30000) { // 30 seconds (testing only)
+          peer.status = 'Inactive';
+        } else {
+          peer.status = 'Offline';
+        }
+        console.log(this.peers);
+      });
+    }, 10000); // Would be less frequent in an actual application
+  }
+
+  clearMessages() {
+    this.thread = [];
+    sessionStorage.setItem(`thread-${this.channel}`, JSON.stringify(this.thread));
   }
 
   getDateString(date: any) {
@@ -64,14 +84,12 @@ export class MessengerComponent implements OnInit {
     // Enter is pressed
     if (event.keyCode == 13) {
       event.preventDefault();
-      this.message.dateCreated = Date.now();
-      this.ipfsService.sendMsg(JSON.stringify(this.message), this.channel);
-      this.message.text = "";
+      this.sendMessage();
     }
   }
 
-  async handleMessage(msg: any) {
-    // processing recieved messages
+  async handleReceiveMessage(msg: any) {
+    // processing recieved messages    
     let messageJson = '';
     try {
       messageJson = new TextDecoder().decode(msg.data);
@@ -79,9 +97,33 @@ export class MessengerComponent implements OnInit {
       messageJson = msg.data;
     }
     let message = JSON.parse(messageJson);
+    this.updatePeers(msg.from, message.displayName);
     this.thread.push(message);
     sessionStorage.setItem(`thread-${this.channel}`, JSON.stringify(this.thread));
     sessionStorage.setItem(`displayName`, this.message.displayName);
+  }
+
+  sendMessage() {
+    this.message.dateCreated = Date.now();
+    this.ipfsService.sendMsg(JSON.stringify(this.message), this.channel);
+    this.message.text = "";
+  }
+
+  updatePeers(id: string, name: string) {
+    let peer = this.peers.find((p: any) => p.id==id);
+    if(peer) {
+      peer.name = name;
+      peer.lastActiveDate = new Date();
+      peer.status = 'Active';
+    } else {
+      this.peers.push({
+        id,
+        name,
+        lastActiveDate: new Date(),
+        status: 'Active'
+      });
+    }
+    console.log(this.peers);
   }
 
 }
